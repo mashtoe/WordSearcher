@@ -42,7 +42,6 @@ public class WordDAO
         {
             String word = scan.nextLine();
             words.add(word);
-            System.out.println(word);
         }
         
         
