@@ -5,7 +5,14 @@
  */
 package wordsearcher.dal;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -13,20 +20,37 @@ import java.util.List;
  */
 public class WordDAO 
 {
+    private static final String wordFileName = "brit-a-z.txt";
 
     /**
      * Gets all words from the brit a-z text file.
      * @return List of all words.
      */
-    public List<String> getAllWords() 
+    public List<String> getAllWords() throws FileNotFoundException 
     {
+        
+        ArrayList<String> words = new ArrayList<>();
+
         //1 get a hold of the file !
-        //2 read all lines in file !
-        //3 save lines to arraylist
-        //4 return arraylist
-        return null;
+        File wordFile = new File(wordFileName);
+        FileReader fr = new FileReader(wordFile);
+        BufferedReader br = new BufferedReader(fr);
+        Scanner scan = new Scanner(br);
+        
+        
+        while(scan.hasNextLine())
+        {
+            String word = scan.nextLine();
+            words.add(word);
+            System.out.println(word);
+        }
+        
+        
+        scan.close();
+        return words;
     }
- 
+    
+    
     
     
     
