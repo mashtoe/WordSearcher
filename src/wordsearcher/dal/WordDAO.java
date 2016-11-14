@@ -14,6 +14,10 @@ import java.util.List;
 public class WordDAO 
 {
 
+    /**
+     * Gets all words from the brit a-z text file.
+     * @return List of all words.
+     */
     public List<String> getAllWords() 
     {
         //1 get a hold of the file !

@@ -17,12 +17,18 @@ public class WordManager {
 
     private WordDAO wordDAO;
 
+    /**
+     * Constructs a wordManager object.
+     */
     public WordManager() {
-        
         wordDAO = new WordDAO();
-
+        
     }
 
+    /**
+     * Gets all the searchable words.
+     * @return List of all words;
+     */
     public List<String> getAllWords() {
         List<String> allWords = wordDAO.getAllWords();
         return allWords;
