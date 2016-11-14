@@ -6,6 +6,7 @@
 package wordsearcher.gui.model;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import wordsearcher.bll.WordManager;
@@ -19,7 +20,7 @@ public class WordModel {
     private final ObservableList<String> items;
 
     private WordManager wordMgr;
-    
+
     public WordModel() {
         items = FXCollections.observableArrayList();
         wordMgr = new WordManager();
@@ -29,9 +30,24 @@ public class WordModel {
         return items;
     }
 
-    public void reset() throws FileNotFoundException 
-    {
+    /**
+     * 
+     * @throws FileNotFoundException 
+     */
+    public void reset() throws FileNotFoundException {
         items.clear();
         items.addAll(wordMgr.getAllWords());
+    }
+
+    /**
+     * Searches the wordbase for words beginning with the given query.
+     *
+     * @param query The string to search for
+     */
+    public void doSearch(String query) 
+    {
+        List<String> searchResult = wordMgr.beginSearch(query);
+        items.clear();
+        items.addAll(searchResult);
     }
 }

@@ -5,16 +5,13 @@
  */
 package wordsearcher.gui.controller;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import wordsearcher.gui.model.WordModel;
 
 /**
@@ -26,27 +23,40 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ListView lstWords;
 
+    @FXML
+    private TextField txtQuery;
+
     private WordModel model;
 
     public FXMLDocumentController() {
         model = new WordModel();
     }
 
-    
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) 
+    /**
+     * Performs a word search.
+     * @param event 
+     */
+    @FXML
+    void handleSearch(ActionEvent event) 
     {
-        try 
-        {
-            lstWords.setItems(model.getWords());
+        String query = txtQuery.getText();
+        model.doSearch(query);
+    }
+
+    /**
+     * Initializes the controller to the default setting.
+     * @param url
+     * @param rb 
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        lstWords.setItems(model.getWords());
+        try {
             model.reset();
-        } 
-        catch (Exception ex) 
-        {
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-       
+
     }
 
 }

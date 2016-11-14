@@ -35,4 +35,9 @@ public class WordManager {
         return allWords;
     }
 
+    public List<String> beginSearch(String query) {
+        //TODO Try to do this.
+        return null;
+    }
+
 }
