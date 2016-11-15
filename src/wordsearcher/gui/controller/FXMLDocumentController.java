@@ -6,12 +6,14 @@
 package wordsearcher.gui.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import wordsearcher.bll.WordManager;
 import wordsearcher.gui.model.WordModel;
 
 /**
@@ -26,10 +28,22 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField txtQuery;
 
+    /**
+     * The word model (Part of the MVC pattern. Resides in the GUI layer.
+     */
     private WordModel model;
+    
+    /**
+     * The manager of words. Resides in the logic layer. Performs logical operations.
+     */
+    private WordManager wordManager;
 
+    /**
+     * Constructs the Controller. 
+     */
     public FXMLDocumentController() {
         model = new WordModel();
+        wordManager = new WordManager();
     }
 
     /**
@@ -39,8 +53,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     void handleSearch(ActionEvent event) 
     {
-        String query = txtQuery.getText();
-        model.doSearch(query);
+        String query = txtQuery.getText().trim();
+        List<String> searchResult = wordManager.beginSearch(query);
+        model.setWords(searchResult);
     }
 
     /**
@@ -49,14 +64,18 @@ public class FXMLDocumentController implements Initializable {
      * @param rb 
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+        //Databinding:
         lstWords.setItems(model.getWords());
-        try {
-            model.reset();
-        } catch (Exception ex) {
+        try 
+        {
+            List<String> allWords = wordManager.getAllWords();
+            model.setWords(allWords);
+        } catch (Exception ex) 
+        {
             System.out.println(ex.getMessage());
         }
-
     }
 
 }

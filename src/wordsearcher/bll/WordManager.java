@@ -35,9 +35,16 @@ public class WordManager {
         return allWords;
     }
 
+    /**
+     * Performs the search for words 
+     * @param query
+     * @return 
+     */
     public List<String> beginSearch(String query) {
         //TODO Try to do this.
         return null;
     }
 
+    
+    
 }

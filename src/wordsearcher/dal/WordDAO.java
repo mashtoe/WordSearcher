@@ -20,6 +20,9 @@ import java.util.Scanner;
  */
 public class WordDAO 
 {
+    /**
+     * The name of the file with all the words
+     */
     private static final String wordFileName = "brit-a-z.txt";
 
     /**
@@ -31,21 +34,27 @@ public class WordDAO
         
         ArrayList<String> words = new ArrayList<>();
 
-        //1 get a hold of the file !
+        //1 get a hold of the file:
         File wordFile = new File(wordFileName);
+        //2 Put the file in a file reader so we can read characters in from the file:
         FileReader fr = new FileReader(wordFile);
+        //3 Put the file reader in a buffered reader to increase efficiency 
+        //(Like videos on youtube are buffered):
         BufferedReader br = new BufferedReader(fr);
+        //4 Put the buffered reader in a scanner just to get some usefull functionality:
         Scanner scan = new Scanner(br);
         
-        
+        //Start iterating on the data, as long as there are new lines:
         while(scan.hasNextLine())
         {
+            //We extract the current nextline:
             String word = scan.nextLine();
+            //We add the line to our arraylist of words:
             words.add(word);
         }
-        
-        
+        //We close the scanner, and thus all the used connections to the file:
         scan.close();
+        //We return the list of words:
         return words;
     }
     
