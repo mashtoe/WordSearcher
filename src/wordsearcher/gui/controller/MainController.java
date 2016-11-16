@@ -5,14 +5,24 @@
  */
 package wordsearcher.gui.controller;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
+import wordsearcher.bll.BeginsWithSearch;
+import wordsearcher.bll.ContainsSearch;
+import wordsearcher.bll.EndsWithSearch;
+import wordsearcher.bll.ExactSearch;
 import wordsearcher.bll.WordManager;
 import wordsearcher.gui.model.WordModel;
 
@@ -27,7 +37,23 @@ public class MainController implements Initializable {
 
     @FXML
     private TextField txtQuery;
+    
+    @FXML
+    private RadioButton radioBegin;
+    
+    @FXML
+    private RadioButton radioExact;
 
+    @FXML
+    private RadioButton radioEndsWith;
+    
+    @FXML
+    private RadioButton radioContains;
+
+    @FXML
+    private ToggleGroup SearchTypes;
+
+    
     /**
      * The word model (Part of the MVC pattern. Resides in the GUI layer.
      */
@@ -53,9 +79,32 @@ public class MainController implements Initializable {
     @FXML
     void handleSearch(ActionEvent event) 
     {
-        String query = txtQuery.getText().trim();
-        List<String> searchResult = wordManager.beginSearch(query);
-        model.setWords(searchResult);
+        try 
+        {
+            String query = txtQuery.getText().trim();
+            List<String> searchResult = null;
+            if (radioBegin.isSelected()) 
+            {
+                searchResult = wordManager.search(new BeginsWithSearch(query));
+            }
+            else if(radioContains.isSelected())
+            {
+                searchResult = wordManager.search(new ContainsSearch(query));
+            }
+            else if(radioEndsWith.isSelected())
+            {
+                searchResult = wordManager.search(new EndsWithSearch(query));
+            }
+            else if(radioExact.isSelected())
+            {
+                searchResult = wordManager.search(new ExactSearch(query));
+            }
+            model.setWords(searchResult);
+        } 
+        catch (Exception ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -72,7 +121,8 @@ public class MainController implements Initializable {
         {
             List<String> allWords = wordManager.getAllWords();
             model.setWords(allWords);
-        } catch (Exception ex) 
+        } 
+        catch (Exception ex) 
         {
             System.out.println(ex.getMessage());
         }

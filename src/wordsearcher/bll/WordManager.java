@@ -36,14 +36,25 @@ public class WordManager {
     }
 
     /**
-     * Performs the search for words 
-     * @param query
-     * @return 
+     * Searches for all words that matches the given
+     * 
      */
-    public List<String> beginSearch(String query) {
-        //TODO Try to do this.
-        return null;
+    public List<String> search(IwordComparer comparer) throws FileNotFoundException
+    {
+        List<String> allWords = getAllWords();
+        List<String> searchList = new ArrayList<>();
+        
+        for(int i = 0; i< allWords.size(); i++) 
+        {
+            if(comparer.compare(allWords.get(i))) 
+            {
+                searchList.add(allWords.get(i));
+            }
+        }
+        
+        return searchList;
     }
+    
 
     
     
