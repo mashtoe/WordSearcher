@@ -19,7 +19,7 @@ public class WordSearcher extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/wordsearcher/gui/view/FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/wordsearcher/gui/view/MainView.fxml"));
         
         Scene scene = new Scene(root);
         

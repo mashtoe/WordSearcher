@@ -20,7 +20,7 @@ import wordsearcher.gui.model.WordModel;
  *
  * @author pgn
  */
-public class FXMLDocumentController implements Initializable {
+public class MainController implements Initializable {
 
     @FXML
     private ListView lstWords;
@@ -41,7 +41,7 @@ public class FXMLDocumentController implements Initializable {
     /**
      * Constructs the Controller. 
      */
-    public FXMLDocumentController() {
+    public MainController() {
         model = new WordModel();
         wordManager = new WordManager();
     }
